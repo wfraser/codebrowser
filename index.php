@@ -29,6 +29,14 @@ $UI = array("main" => array(
     "css" => dirname($_SERVER['SCRIPT_NAME'])."/res/style.css",
 ));
 
+if ($_SERVER['PATH_INFO'] == "/" || $_SERVER['PATH_INFO'] == "") {
+    $UI['index'] = array(
+        //WRFDEV
+    );
+    $UI['main']['main'] = template("index");
+    die(template("main"));
+}
+
 $uriparts = preg_split("#/#", $_SERVER['PATH_INFO'], -1, PREG_SPLIT_NO_EMPTY);
 $fspath = "";
 foreach ($ROOT as $check_uripath => $check_fspath) {
@@ -45,26 +53,47 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
         }
 
         $file = file_get_contents($fspath);
-        $type = sourcetype($fspath);
-        $result = source_highlight($file, $type,
+        $lang = sourcetype($fspath);
+        $result = source_highlight($file, $lang,
             (in_array('width', array_keys($_GET)) ? $_GET['width'] : FALSE));
 
-        $UI['sourcecode'] = array(
-            "name" => basename($fspath),
-            "bytes" => strlen($file),
-            "num_lines" => count($result[0]),
-            "language" => $type,
-            "lines" => $result[0],
-            "more" => $result[1],
-            "morelink" => "XXX",
-        );
+        $type = $result[1];
+        switch ($type) {
+        case "code":
+            $UI['sourcecode'] = array(
+                "name" => basename($fspath),
+                "bytes" => strlen($file),
+                "num_lines" => count($result[0]),
+                "language" => $lang,
+                "lines" => $result[0],
+                "more" => $result[2],
+                "morelink" => "XXX",
+            );
+            $UI['main']['main'] = template("sourcecode");
+            break;
 
-        $UI['main']['main'] = template("sourcecode");
-    }
-}
+        case "image":
+            $UI['imagefile'] = array(
+                //WRFDEV
+            );
+            $UI['main']['main'] = template("imagefile");
+            break;
+
+        case "binary":
+            $UI['binfile'] = array(
+                //WRFDEV
+            );
+            $UI['main']['main'] = template("binfile");
+            break;
+        } // switch type
+
+        break;
+    } // if path match
+} // foreach $ROOT
 
 if ($fspath == "") {
-    $UI['main']['main'] = "do main index here";
+    // path didn't match any of $ROOT
+    $UI['main']['main'] = "invalid project specified";
 }
 
 echo template("main");
