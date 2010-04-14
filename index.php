@@ -42,13 +42,13 @@ $fspath = "";
 foreach ($ROOT as $check_uripath => $check_fspath) {
     if ($check_uripath == $uriparts[0]) {
         array_shift($uriparts);
-        $fspath = $check_fspath . "/" . implode($uriparts);
+        $fspath = $check_fspath . "/" . implode("/", $uriparts);
 
         //WRFDEV
         $UI['main']['main'] = $fspath;
 
         if (!file_exists($fspath)) {
-            echo "404!";
+            echo "404! $fspath not found";
             die(template("404"));
         }
 
@@ -80,6 +80,7 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
             break;
 
         case "binary":
+            $labels = $result[3];
             $UI['binfile'] = array(
                 //WRFDEV
             );

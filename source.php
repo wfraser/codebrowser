@@ -23,6 +23,7 @@ function source_highlight($source, $lang, $max_len)
 {
     $type = "code";
     $lines = array();
+    $labels = array(); // used by binaries
     if (strpos($lang, "image/") === 0) {
         $lines = array("image: <img src=\"data:$lang;base64,".base64_encode($source)."\" align=\"top\" />");
         $type = "image";
@@ -38,6 +39,7 @@ function source_highlight($source, $lang, $max_len)
             $start = 0;
         // 16 bytes per line
         for ($i = $start, $n = 0; $i-1 < $l && $i < $start + MANAGER_HEXDUMP_LIMIT; $i += 16, $n++) {
+            $labels[$n] = sprintf("0x%03x0", $n);
             $lines[$n] = "";
             // two columns of 8 hex values each
             for ($j = 0; $j < 16; $j++) {
@@ -103,7 +105,8 @@ function source_highlight($source, $lang, $max_len)
     // the type of file: either "plain", "image", or "binary"
     // whether there's more to the file. Either FALSE (no more), or a byte
     //   offset to start the next page at
-    return array(source_highlight_fixup($lines, $max_len), $type, $more);
+    // formatted line labels (only used by the "binary" format
+    return array(source_highlight_fixup($lines, $max_len), $type, $more, $labels);
 }
 
 /*
