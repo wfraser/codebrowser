@@ -1,0 +1,71 @@
+body {
+    background: white;
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10pt;
+}
+
+a:link, a:visited {
+    color: #487393;
+    text-decoration: none
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #777;
+    text-decoration: none;
+}
+
+h1 {
+    color: #487393;
+    font-variant: small-caps;
+    /* text-decoration: underline; */
+}
+
+table.source {
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+
+table.source tr td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+td.source-number {
+    border-right: 1px solid #487393;
+    padding-right: 1em;
+    vertical-align: top;
+    text-align: right;
+}
+
+td.source-code {
+    padding-left: 1em;
+    font-family: Consolas, monospace;
+    /*width: 50%;*/
+    white-space: normal;
+}
+
+td.source-note {
+    padding-left: 1em;
+    font-family: Verdana;
+    /*width: 50%;*/
+    white-space: nowrap;
+}
+
+table.listing {
+    border-spacing: 5px 10px;
+}
+
+td.listing-entry {
+    white-space: nowrap;
+}
+
+.soft {
+    color: #777;
+}

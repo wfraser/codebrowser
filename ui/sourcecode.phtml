@@ -1,0 +1,26 @@
+<?php
+/**
+ * document this
+ */
+
+ $name = "orange";
+?>
+<p>Source of <?=$name?> (<?=$bytes?> bytes, <?=$num_lines?> lines, language: <?=$language?>)</p>
+
+<table class="source">
+<?php foreach ($lines as $n => $line): ?>
+    <tr>
+        <td class="source-number">
+            <a href="#<?=$n?>" name="<?=$n?>"><?=$n?></a>
+        </td>
+        <td class="source-code">
+            <?=$line?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php if ($more): ?>
+<p>There is more to this file.
+    <a href="<?=$more?>">Show more.</a>
+</p>
+<?php endif; ?>
