@@ -78,6 +78,7 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
                 "path" => "/".$path,
                 "entries" => array(),
                 "stat" => array(),
+                "up" => preg_replace("#/[^/]+/(?|$)#", "/\\1", $_SERVER['REQUEST_URI']),
             );
             $files = array();
             $dirs  = array();
@@ -91,7 +92,7 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
                 else
                     $files[] = $file;
                 
-                $UI['dirlist']['stat'][$file] = stat($file);
+                $UI['dirlist']['stat'][$file] = stat($fspath."/".$file);
                 $UI['dirlist']['stat'][$file]['is_dir'] = is_dir($file);
             }
             closedir($dir);

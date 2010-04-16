@@ -2,6 +2,7 @@
 <hr />
 <table>
 <tr><th>Filename</th></tr>
+<tr><td><a href="<?=$up?>">../</a></td></tr>
 <?php foreach ($entries as $n => $file): ?>
 <tr>
     <td><a href="<?=$file?>"><?=$file?><?=($stat[$file]['is_dir']?"/":"")?></a></td>
