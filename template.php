@@ -3,6 +3,9 @@
 /**
  * @file
  * UI Template Functions.
+ *
+ * by William R. Fraser <wrf@codewise.org> 4/16/2010
+ * Copyright (c) 2010 WRF
  */
 
 /**

@@ -2,11 +2,10 @@
 
 /*
 ** Source Code Formatter
-** for Codewise Source Code Browser
 **
 ** original version by William R. Fraser <wrf@codewise.org> 8/21/2008
-**
-** Copyright (c) 2008-2010 William R. Fraser
+** updated 4/16/2010
+** Copyright (c) 2008-2010 WRF
 */
 
 // process 20KB at a time

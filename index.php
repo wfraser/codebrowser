@@ -2,6 +2,9 @@
 
 /*
  * Source Code Browser
+ *
+ * by William R. Fraser <wrf@codewise.org> (4/16/2010)
+ * Copyright (c) 2010 WRF
  */
 
 define("START_TIME", microtime(true));
@@ -17,7 +20,7 @@ define("ENSCRIPT_BINARY", "/home/wfraser/bin/enscript");
 $ROOT = array(
     "this"      => "/home/wfraser/public_html/code",
     "gasmiles"  => "/home/wfraser/gasmiles",
-    "test"      => "/home/wfraser/test",
+//    "test"      => "/home/wfraser/test",
 );
 
 require 'source.php';

@@ -2,10 +2,10 @@
 
 /*
 ** Miscellaneous Functions
-** for Codewise Manager
 **
-** by William R. Fraser <wrf@codewise.org> (7/30/2008)
-** Copyright (c) 2008 Codewise.org
+** original version by William R. Fraser <wrf@codewise.org> 7/30/2008
+** updated 4/16/2010
+** Copyright (c) 2008-2010 WRF
 */
 
 function vdump($var, $return = FALSE)
