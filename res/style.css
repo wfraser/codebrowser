@@ -69,3 +69,8 @@ td.listing-entry {
 .soft {
     color: #777;
 }
+
+code.path {
+    font-variant: normal;
+    font-family: Consolas, monospace;
+}

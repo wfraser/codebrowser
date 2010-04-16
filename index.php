@@ -27,7 +27,7 @@ require 'misc.php';
 
 //WRFDEV
 if (in_array("dump", array_keys($_GET))) {
-    dump($_SERVER);
+    vdump($_SERVER);
 }
 
 $UI = array("main" => array(
@@ -37,13 +37,18 @@ $UI = array("main" => array(
 ));
 
 if (REBUILD_PATH_INFO) {
-    $_SERVER['PATH_INFO'] = str_replace(dirname($_SERVER['SCRIPT_NAME']), "", $_SERVER['REDIRECT_URL']);
-    $_SERVER['PATH_INFO'] = substr($_SERVER['PATH_INFO'], 1);
+    if (!isset($_SERVER['REDIRECT_URL'])) {
+        $_SERVER['PATH_INFO'] = "";
+    }
+    else {
+        $_SERVER['PATH_INFO'] = str_replace(dirname($_SERVER['SCRIPT_NAME']), "", $_SERVER['REDIRECT_URL']);
+        $_SERVER['PATH_INFO'] = substr($_SERVER['PATH_INFO'], 1);
+    }
 }
 
 if ($_SERVER['PATH_INFO'] == "/" || $_SERVER['PATH_INFO'] == "") {
     $UI['index'] = array(
-        //WRFDEV
+        "projects" => array_keys($ROOT),
     );
     $UI['main']['main'] = template("index");
     die(template("main"));
@@ -53,24 +58,48 @@ $uriparts = preg_split("#/#", $_SERVER['PATH_INFO'], -1, PREG_SPLIT_NO_EMPTY);
 $fspath = "";
 foreach ($ROOT as $check_uripath => $check_fspath) {
     if ($check_uripath == $uriparts[0]) {
-        array_shift($uriparts);
+        $path = array_shift($uriparts) . "/" . implode("/", $uriparts);
         $fspath = $check_fspath . "/" . implode("/", $uriparts);
 
-        //WRFDEV
-        $UI['main']['main'] = $fspath;
-
         if (!file_exists($fspath)) {
-            echo "404! $fspath not found";
             $UI['404'] = array(
-                //WRFDEV
+                "what" => $path,
             );
             $UI['main']['main'] = template("404");
         }
         else if (is_dir($fspath)) {
+            if (!preg_match("#/$#", $_SERVER['REQUEST_URI'])) {
+                header("Location: ".$_SERVER['REQUEST_URI']."/");
+                exit;
+            }
+
             // list directory
             $UI['dirlist'] = array(
-                //WRFDEV
+                "path" => "/".$path,
+                "entries" => array(),
+                "stat" => array(),
             );
+            $files = array();
+            $dirs  = array();
+            $dir = opendir($fspath);
+            while ($file = readdir($dir)) {
+                if (strpos($file, ".") === 0)
+                    continue;
+                
+                if (is_dir($file))
+                    $dirs[] = $file;
+                else
+                    $files[] = $file;
+                
+                $UI['dirlist']['stat'][$file] = stat($file);
+                $UI['dirlist']['stat'][$file]['is_dir'] = is_dir($file);
+                
+                sort($files);
+                sort($dirs);
+                $UI['dirlist']['entries'] = array_merge($dirs, $files);
+            }
+            closedir($dir);
+
             $UI['main']['main'] = template("dirlist");
         }
         else {
@@ -141,7 +170,11 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
 
 if ($fspath == "") {
     // path didn't match any of $ROOT
-    $UI['main']['main'] = "invalid project specified";
+    $UI['badproj'] = array(
+        "what" => $uriparts[0],
+        "index" => $_SERVER['SCRIPT_NAME'],
+    );
+    $UI['main']['main'] = template("badproj");
 }
 
 echo template("main");

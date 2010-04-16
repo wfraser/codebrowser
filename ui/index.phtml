@@ -1,1 +1,7 @@
-<h1>Nothing here yet :)</h1>
+<h1>Code Browser</h1>
+<p>Projects on this site:</p>
+<ul>
+<?php foreach ($projects as $n => $project): ?>
+    <li><a href="<?=$project?>"><?=$project?></a></li>
+<?php endforeach; ?>
+</ul>

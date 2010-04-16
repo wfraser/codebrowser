@@ -3,10 +3,10 @@
 <?php elseif ($type == "binary"): ?>Hex dump of
 <?php else: ?>Source of
 <?php endif; ?>
-<?=$name?> (<?=$bytes?> bytes)
-<?php if ($type == "source"): ?><?=$num_lines?> lines, language: <?=$language?>)
-<?php elseif ($type == "image"): ?>type: <?=$language?>)
-<?php endif; ?>
+<?=$name?> (<?=$bytes?> bytes<?php if ($type == "code"): ?>
+, <?=$num_lines?> lines, language: <?=$language?>
+<?php elseif ($type == "image"): ?>, type: <?=$language?>
+<?php endif; ?>)
 
 <?php if ($type != "image" && $type != "binary" && $language != "plain"): ?>
 | <a href="<?=$plainlink?>">[no color]</a>

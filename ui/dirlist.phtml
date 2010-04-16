@@ -1,0 +1,10 @@
+<h1>Directory list for <code class="path"><?=$path?></code></h1>
+<hr />
+<table>
+<tr><th>Filename</th></tr>
+<?php foreach ($entries as $n => $file): ?>
+<tr>
+    <td><a href="<?=$file?>"><?=$file?><?=($stat[$file]['is_dir']?"/":"")?></a></td>
+</tr>
+<?php endforeach; ?>
+</table>
