@@ -93,12 +93,12 @@ foreach ($ROOT as $check_uripath => $check_fspath) {
                 
                 $UI['dirlist']['stat'][$file] = stat($file);
                 $UI['dirlist']['stat'][$file]['is_dir'] = is_dir($file);
-                
-                sort($files);
-                sort($dirs);
-                $UI['dirlist']['entries'] = array_merge($dirs, $files);
             }
             closedir($dir);
+
+            sort($files);
+            sort($dirs);
+            $UI['dirlist']['entries'] = array_merge($dirs, $files);
 
             $UI['main']['main'] = template("dirlist");
         }
