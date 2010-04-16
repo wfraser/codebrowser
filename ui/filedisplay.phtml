@@ -1,0 +1,47 @@
+<p>
+<?php if ($type == "image"): ?>Image
+<?php elseif ($type == "binary"): ?>Hex dump of
+<?php else: ?>Source of
+<?php endif; ?>
+<?=$name?> (<?=$bytes?> bytes)
+<?php if ($type == "source"): ?><?=$num_lines?> lines, language: <?=$language?>)
+<?php elseif ($type == "image"): ?>type: <?=$language?>)
+<?php endif; ?>
+
+<?php if ($type != "image" && $type != "binary" && $language != "plain"): ?>
+| <a href="<?=$plainlink?>">[no color]</a>
+<?php endif; ?>
+<?php if ($type != "binary"): ?>
+| <a href="<?=$hexlink?>">[hexdump]</a>
+<?php endif; ?>
+| <a href="<?=$rawlink?>">[download]</a>
+
+<?php if ($type == "image"): ?>
+<hr /><br />
+<img 
+<?php if ($inline_img): ?>
+    src="data:<?=$language?>;base64,<?=$inline_img?>"
+<?php else: ?>
+    src="<?=$img_href?>"
+<?php endif; ?>
+    alt="<?=$name?>" />
+<?php else: ?>
+<table class="source">
+<?php foreach ($lines as $n => $line): ?>
+    <tr>
+        <td class="source-number">
+            <a href="#<?=$n+1?>" name="<?=$n+1?>"><?=(($type=="binary")?$labels[$n]:$n+1)?></a>
+        </td>
+        <td class="source-code">
+            <?=$line?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+<?php if ($more): ?>
+<hr />
+<p>There is more to this file.
+    <a href="<?=$morelink?>">Show more.</a>
+</p>
+<?php endif; ?>

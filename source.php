@@ -1,11 +1,12 @@
 <?php
 
 /*
-** Source Code Functions
-** for Codewise Project Manager
+** Source Code Formatter
+** for Codewise Source Code Browser
 **
-** by William R. Fraser <wrf@codewise.org> 8/21/2008
-** Copyright (c) 2008 Codewise.org
+** original version by William R. Fraser <wrf@codewise.org> 8/21/2008
+**
+** Copyright (c) 2008-2010 William R. Fraser
 */
 
 // process 20KB at a time
@@ -25,10 +26,10 @@ function source_highlight($source, $lang, $max_len)
     $lines = array();
     $labels = array(); // used by binaries
     if (strpos($lang, "image/") === 0) {
-        $lines = array("image: <img src=\"data:$lang;base64,".base64_encode($source)."\" align=\"top\" />");
+        $lines = array(base64_encode($source));
         $type = "image";
-        return array($lines, $type, null);
-    } else if ($lang == "binary" || strpos($source, "\000") !== FALSE) {
+        return array($lines, $type, null, null);
+    } else if ($lang == "hex" || strpos($source, "\000") !== FALSE) {
         // file contains NULs = we have a binary
         // awesome hex dump mode
         $type = "binary";
@@ -39,7 +40,7 @@ function source_highlight($source, $lang, $max_len)
             $start = 0;
         // 16 bytes per line
         for ($i = $start, $n = 0; $i-1 < $l && $i < $start + MANAGER_HEXDUMP_LIMIT; $i += 16, $n++) {
-            $labels[$n] = sprintf("0x%03x0", $n);
+            $labels[$n] = sprintf("0x%04x", $n*16+$start);
             $lines[$n] = "";
             // two columns of 8 hex values each
             for ($j = 0; $j < 16; $j++) {

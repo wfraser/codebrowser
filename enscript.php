@@ -1,16 +1,16 @@
 <?php
 
 /*
-** Miscellaneous Functions
-** for Codewise Manager
+** Enscript Functions
+** for Codewise Source Code Browser
 **
-** by William R. Fraser <wrf@codewise.org> (7/30/2008)
-** Copyright (c) 2008 Codewise.org
+** original version by William R. Fraser <wrf@codewise.org> (7/30/2008)
+** Copyright (c) 2008-2010 William R. Fraser
 */
 
 /*
 ** Uses Enscript to highlight the passed source code in the given language.
-** Must be able to do a proc_open and enscript must be in PATH.
+** Must be able to do a proc_open on the path in ENSCRIPT_BINARY constant.
 */
 function enscript($code, $lang)
 {

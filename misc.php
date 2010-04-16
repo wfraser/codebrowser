@@ -21,6 +21,22 @@ function vdump($var, $return = FALSE)
         echo $output;
 }
 
+function url_add_var($url, $varname, $varval)
+{
+    if (in_array($varname, array_keys($_GET))) {
+        return preg_replace(
+            "/([&?])$varname=.*([&?]|$)/",
+            "\\1$varname=$varval\\2",
+            $url);
+    }
+    else if (!empty($_GET)) {
+        return $url . "&amp;$varname=$varval";
+    }
+    else {
+        return $url . "?$varname=$varval";
+    }
+}
+
 /*
 ** Tries to elucidate the type of a file based on its name.
 ** Returns languages of source code, mime types of images, and "plain" for
@@ -64,6 +80,8 @@ function sourcetype($filename, $ls = array())
         return "javascript";
     case "rtf":
         return "lang_rtf";
+    case "phtml":
+        return "php";
     case "pl":
         return "perl";
     case "py":

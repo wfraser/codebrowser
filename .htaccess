@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /~wfraser/code
+RewriteRule !^(index\.php$|res/) index.php [L]
+
