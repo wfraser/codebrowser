@@ -69,6 +69,10 @@ function sourcetype($filename, $ls = array())
     case "l":   // lex
     case "y":   // yacc/bison
         return "c";
+
+    case "ypp":
+    case "hpp":
+        return "cpp";
     
     case "s":
         return "asm";
