@@ -29,12 +29,12 @@
 <table class="source">
 <?php foreach ($lines as $n => $line): ?>
     <tr>
+<?php if(!isset($_GET['no_lines'])): ?>
         <td class="source-number">
             <a href="#<?=$n+1?>" name="<?=$n+1?>"><?=(($type=="binary")?$labels[$n]:$n+1)?></a>
         </td>
-        <td class="source-code">
-            <?=$line?>
-        </td>
+<?php endif; ?>
+        <td class="source-code">&#x200b;<?=$line?></td>
     </tr>
 <?php endforeach; ?>
 </table>

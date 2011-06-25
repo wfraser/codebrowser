@@ -197,7 +197,7 @@ function source_highlight_fixup($lines, $max_len = 80)
                 $lines[$n+1] = "<$tag>".$lines[$n+1];
             }
         }
-        $lines[$n] = "<div style=\"white-space:pre\">".$lines[$n]."</div>";
+        //$lines[$n] = "<div style=\"white-space:pre\">".$lines[$n]."</div>";
     }
 
     return $lines;

@@ -2,7 +2,7 @@ body {
     background: white;
     color: black;
     font-family: Verdana, Arial, sans-serif;
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 a:link, a:visited {
@@ -48,7 +48,7 @@ td.source-code {
     padding-left: 1em;
     font-family: Consolas, monospace;
     /*width: 50%;*/
-    white-space: normal;
+    white-space: pre;
 }
 
 td.source-note {
